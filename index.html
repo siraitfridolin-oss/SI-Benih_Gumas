@@ -13,7 +13,8 @@
   <header class="bg-teal-700 text-white shadow-lg sticky top-0 z-50">
     <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
       <div class="flex items-center space-x-3">
-        <img src="logo.png" alt="Logo DPKP Gunung Mas" class="h-10 w-auto">
+        <!-- Logo Dinas / Pemda -->
+        <img src="logo.png" alt="Logo DPKP" class="h-10 w-auto" onerror="this.onerror=null; this.src='https://via.placeholder.com/40?text=DPKP';">
         <div>
           <h1 class="font-bold text-lg leading-none">SI-BENIH</h1>
           <p class="text-xs text-teal-200">DPKP Kabupaten Gunung Mas</p>
@@ -27,24 +28,24 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="bg-gradient-to-r from-teal-800 to-cyan-800 text-white py-12 px-4">
+  <section class="bg-gradient-to-r from-teal-800 to-cyan-800 text-white pt-10 pb-16 px-4">
     <div class="max-w-4xl mx-auto text-center">
       <span class="bg-teal-600 text-teal-100 text-xs px-3 py-1 rounded-full font-semibold uppercase tracking-wider">Inovasi Pelayanan Publik</span>
-      <h2 class="text-3xl md:text-4xl font-extrabold mt-3 mb-4">Informasi Ketersediaan & Stok Benih Ikan Real-Time</h2>
-      <p class="text-teal-100 text-sm md:text-base max-w-2xl mx-auto">
+      <h2 class="text-2xl md:text-3xl font-extrabold mt-3 mb-2">Informasi Ketersediaan & Stok Benih Ikan Real-Time</h2>
+      <p class="text-teal-100 text-xs md:text-sm max-w-2xl mx-auto">
         Layanan resmi Balai Benih Ikan (BBI) Dinas Perikanan dan Ketahanan Pangan Kabupaten Gunung Mas. Cek stok, harga, dan lakukan pemesanan secara langsung.
       </p>
     </div>
   </section>
 
-  <!-- Status / Info Ringkas -->
-  <section class="max-w-6xl mx-auto px-4 -mt-6">
+  <!-- Status / Info Ringkas (Diambil dari Web Lama) -->
+  <section class="max-w-6xl mx-auto px-4 -mt-8">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <div class="bg-white p-4 rounded-xl shadow-md border-l-4 border-teal-500 flex items-center space-x-4">
         <div class="p-3 bg-teal-100 text-teal-700 rounded-lg"><i class="fa-solid fa-clock text-xl"></i></div>
         <div>
           <p class="text-xs text-gray-500 font-medium">Akses Layanan</p>
-          <p class="font-bold text-gray-800">24 Jam Real-Time</p>
+          <p class="font-bold text-gray-800">24 Jam </p>
         </div>
       </div>
       <div class="bg-white p-4 rounded-xl shadow-md border-l-4 border-blue-500 flex items-center space-x-4">
@@ -64,110 +65,183 @@
     </div>
   </section>
 
-  <!-- Tabel / Kartu Stok Benih -->
-  <main class="max-w-6xl mx-auto px-4 py-10">
-    <div class="flex justify-between items-center mb-6">
+  <!-- Judul & Tombol Refresh Data -->
+  <section class="max-w-6xl mx-auto px-4 mt-8">
+    <div class="flex justify-between items-center mb-4">
       <div>
         <h3 class="text-xl font-bold text-gray-800">Daftar Stok Benih Ikan</h3>
-        <p class="text-sm text-gray-500">Update data ketersediaan benih di lokasi BBI</p>
+        <p class="text-xs text-gray-500">Update data ketersediaan benih di lokasi BBI</p>
       </div>
       <button onclick="location.reload()" class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1.5 rounded-md flex items-center gap-1">
         <i class="fa-solid fa-rotate-right"></i> Refresh Data
       </button>
     </div>
 
-    <!-- Grid Kartu Benih -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      
-      <!-- Kartu 1 -->
-      <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
-        <div class="bg-teal-50 p-4 border-b border-teal-100 flex justify-between items-center">
-          <h4 class="font-bold text-teal-900 text-lg">Benih Ikan Nila</h4>
-          <span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-0.5 rounded-full font-semibold">Tersedia</span>
+    <!-- Pilihan Lokasi BBI (Tab Navigation) -->
+    <div class="bg-white rounded-xl shadow-sm p-2 flex border border-gray-100">
+      <button id="btn-bbi-1" onclick="switchBBI('bbi-1')" class="flex-1 py-3 text-center rounded-lg font-semibold text-sm transition flex items-center justify-center gap-2 bg-teal-50 text-teal-800 border border-teal-200 shadow-sm">
+        <i class="fa-solid fa-location-dot text-teal-600"></i>
+        <span>BBI Kurun</span>
+      </button>
+      <button id="btn-bbi-2" onclick="switchBBI('bbi-2')" class="flex-1 py-3 text-center rounded-lg font-semibold text-sm transition flex items-center justify-center gap-2 text-gray-500 hover:text-teal-700">
+        <i class="fa-solid fa-location-dot text-gray-400"></i>
+        <span>BBI Tewah</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Main Content Area -->
+  <main class="max-w-6xl mx-auto px-4 py-6">
+    
+    <!-- SECTION DATA BBI 1 (KURUN) -->
+    <div id="content-bbi-1" class="space-y-6">
+      <div class="flex justify-between items-center bg-teal-50/50 p-4 rounded-lg border border-teal-100">
+        <div>
+          <h3 class="text-lg font-bold text-teal-900">Stok Benih Ikan - BBI Kurun</h3>
+          <p class="text-xs text-gray-500">Lokasi: Kecamatan Kurun, Kabupaten Gunung Mas</p>
         </div>
-        <div class="p-4 space-y-2 text-sm">
-          <div class="flex justify-between text-gray-600">
-            <span>Ukuran:</span>
-            <span class="font-semibold text-gray-800">3 - 5 cm</span>
-          </div>
-          <div class="flex justify-between text-gray-600">
-            <span>Stok Tersedia:</span>
-            <span class="font-bold text-teal-700">4.000 Ekor</span>
-          </div>
-          <div class="flex justify-between text-gray-600">
-            <span>Harga / Ekor:</span>
-            <span class="font-semibold text-gray-800">Rp 600</span>
-          </div>
-          <hr class="my-2">
-          <a href="https://wa.me/6282148470908?text=Halo%20BBI,%20saya%20ingin%20memesan%20Benih%20Ikan%20Nila" target="_blank" class="w-full bg-teal-600 hover:bg-teal-700 text-white text-center py-2 rounded-lg font-semibold block text-xs">
-            Pesan Benih Ini
-          </a>
-        </div>
+        <span class="text-xs bg-teal-100 text-teal-800 font-semibold px-3 py-1 rounded-full">Unit 1</span>
       </div>
 
-      <!-- Kartu 2 -->
-      <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
-        <div class="bg-teal-50 p-4 border-b border-teal-100 flex justify-between items-center">
-          <h4 class="font-bold text-teal-900 text-lg">Benih Ikan Patin</h4>
-          <span class="bg-rose-100 text-rose-800 text-xs px-2.5 py-0.5 rounded-full font-semibold">Habis</span>
+      <!-- Grid Ikan BBI Kurun (Tengah) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
+        
+        <!-- Nila (Kurun) -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
+          <div class="bg-teal-50 p-4 border-b border-teal-100 flex justify-between items-center">
+            <h4 class="font-bold text-teal-900 text-base">Benih Ikan Nila</h4>
+            <span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-0.5 rounded-full font-semibold">Tersedia</span>
+          </div>
+          <div class="p-4 space-y-2 text-sm">
+            <div class="flex justify-between text-gray-600"><span>Ukuran:</span><span class="font-semibold text-gray-800">3 - 5 cm</span></div>
+            <div class="flex justify-between text-gray-600"><span>Stok Tersedia:</span><span class="font-bold text-teal-700">5.000 Ekor</span></div>
+            <div class="flex justify-between text-gray-600"><span>Harga / Ekor:</span><span class="font-semibold text-gray-800">Rp 650</span></div>
+            <hr class="my-2">
+            <a href="https://wa.me/6282250561090?text=Halo%20BBI%20Kurun,%20saya%20ingin%20memesan%20Benih%20Ikan%20Nila" target="_blank" class="w-full bg-teal-600 hover:bg-teal-700 text-white text-center py-2 rounded-lg font-semibold block text-xs">
+              Pesan ke BBI Kurun
+            </a>
+          </div>
         </div>
-        <div class="p-4 space-y-2 text-sm">
-          <div class="flex justify-between text-gray-600">
-            <span>Ukuran:</span>
-            <span class="font-semibold text-gray-800">3 - 5 cm</span>
+
+        <!-- Patin (Kurun) -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
+          <div class="bg-teal-50 p-4 border-b border-teal-100 flex justify-between items-center">
+            <h4 class="font-bold text-teal-900 text-base">Benih Ikan Patin</h4>
+            <span class="bg-rose-100 text-rose-800 text-xs px-2.5 py-0.5 rounded-full font-semibold">Habis</span>
           </div>
-          <div class="flex justify-between text-gray-600">
-            <span>Stok Tersedia:</span>
-            <span class="font-bold text-rose-600">0 Ekor</span>
+          <div class="p-4 space-y-2 text-sm">
+            <div class="flex justify-between text-gray-600"><span>Ukuran:</span><span class="font-semibold text-gray-800">3 - 5 cm</span></div>
+            <div class="flex justify-between text-gray-600"><span>Stok Tersedia:</span><span class="font-bold text-rose-600">0 Ekor</span></div>
+            <div class="flex justify-between text-gray-600"><span>Harga / Ekor:</span><span class="font-semibold text-gray-800">Rp 750</span></div>
+            <hr class="my-2">
+            <button disabled class="w-full bg-gray-300 text-gray-500 cursor-not-allowed text-center py-2 rounded-lg font-semibold block text-xs">
+              Stok Belum Tersedia
+            </button>
           </div>
-          <div class="flex justify-between text-gray-600">
-            <span>Harga / Ekor:</span>
-            <span class="font-semibold text-gray-800">Rp 750</span>
+        </div>
+
+        <!-- Gurame (Kurun) -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
+          <div class="bg-teal-50 p-4 border-b border-teal-100 flex justify-between items-center">
+            <h4 class="font-bold text-teal-900 text-base">Benih Ikan Gurame</h4>
+            <span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-0.5 rounded-full font-semibold">Stok Menipis</span>
           </div>
-          <hr class="my-2">
-          <button disabled class="w-full bg-gray-300 text-gray-500 cursor-not-allowed text-center py-2 rounded-lg font-semibold block text-xs">
+          <div class="p-4 space-y-2 text-sm">
+            <div class="flex justify-between text-gray-600"><span>Ukuran:</span><span class="font-semibold text-gray-800">3 - 5 cm</span></div>
+            <div class="flex justify-between text-gray-600"><span>Stok Tersedia:</span><span class="font-bold text-amber-700">500 Ekor</span></div>
+            <div class="flex justify-between text-gray-600"><span>Harga / Ekor:</span><span class="font-semibold text-gray-800">Rp 2.000</span></div>
+            <hr class="my-2">
+            <a href="https://wa.me/6281234567890?text=Halo%20BBI%20Kurun,%20saya%20ingin%20memesan%20Benih%20Ikan%20Gurame" target="_blank" class="w-full bg-teal-600 hover:bg-teal-700 text-white text-center py-2 rounded-lg font-semibold block text-xs">
+              Pesan ke BBI Kurun
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SECTION DATA BBI 2 (TEWAH) -->
+    <div id="content-bbi-2" class="space-y-6 hidden">
+      <div class="flex justify-between items-center bg-cyan-50/50 p-4 rounded-lg border border-cyan-100">
+        <div>
+          <h3 class="text-lg font-bold text-cyan-900">Stok Benih Ikan - BBI Tewah</h3>
+          <p class="text-xs text-gray-500">Lokasi: Kecamatan Tewah, Kabupaten Gunung Mas</p>
+        </div>
+        <span class="text-xs bg-cyan-100 text-cyan-800 font-semibold px-3 py-1 rounded-full">Unit 2</span>
+      </div>
+
+      <!-- Grid Ikan BBI Tewah (Tengah) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
+        
+        <!-- Nila (Tewah) -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
+          <div class="bg-cyan-50 p-4 border-b border-cyan-100 flex justify-between items-center">
+            <h4 class="font-bold text-cyan-900 text-base">Benih Ikan Nila</h4>
+            <span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-0.5 rounded-full font-semibold">Tersedia</span>
+          </div>
+          <div class="p-4 space-y-2 text-sm">
+            <div class="flex justify-between text-gray-600"><span>Ukuran:</span><span class="font-semibold text-gray-800">3 - 5 cm</span></div>
+            <div class="flex justify-between text-gray-600"><span>Stok Tersedia:</span><span class="font-bold text-teal-700">1.000 Ekor</span></div>
+            <div class="flex justify-between text-gray-600"><span>Harga / Ekor:</span><span class="font-semibold text-gray-800">Rp 650</span></div>
+            <hr class="my-2">
+            <a href="https://wa.me/6282148470908?text=Halo%20BBI%20Tewah,%20saya%20ingin%20memesan%20Benih%20Ikan%20Nila" target="_blank" class="w-full bg-cyan-700 hover:bg-cyan-800 text-white text-center py-2 rounded-lg font-semibold block text-xs">
+              Pesan ke BBI Tewah
+            </a>
+          </div>
+        </div>
+
+        <!-- Gurame (Tewah) -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
+          <div class="bg-cyan-50 p-4 border-b border-cyan-100 flex justify-between items-center">
+            <h4 class="font-bold text-cyan-900 text-base">Benih Ikan Gurame</h4>
+            <span class="bg-rose-100 text-rose-800 text-xs px-2.5 py-0.5 rounded-full font-semibold">Kosong</span>
+          </div>
+          <div class="p-4 space-y-2 text-sm">
+            <div class="flex justify-between text-gray-600"><span>Ukuran:</span><span class="font-semibold text-gray-800">3 - 5 cm</span></div>
+            <div class="flex justify-between text-gray-600"><span>Stok Tersedia:</span><span class="font-bold text-rose-600">0 Ekor</span></div>
+            <div class="flex justify-between text-gray-600"><span>Harga / Ekor:</span><span class="font-semibold text-gray-800">Rp 2000</span></div>
+            <hr class="my-2">
+            <button disabled class="w-full bg-gray-300 text-gray-500 cursor-not-allowed text-center py-2 rounded-lg font-semibold block text-xs">
   Stok Belum Tersedia
 </button>
+          </div>
         </div>
-      </div>
 
-      <!-- Kartu 3 -->
-      <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
-        <div class="bg-teal-50 p-4 border-b border-teal-100 flex justify-between items-center">
-          <h4 class="font-bold text-teal-900 text-lg">Benih Ikan Gurame</h4>
-          <span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-0.5 rounded-full font-semibold">Tersedia</span>
-        </div>
-        <div class="p-4 space-y-2 text-sm">
-          <div class="flex justify-between text-gray-600">
-            <span>Ukuran:</span>
-            <span class="font-semibold text-gray-800">3 - 5 cm</span>
-          </div>
-          <div class="flex justify-between text-gray-600">
-            <span>Stok Tersedia:</span>
-            <span class="font-bold text-emerald-600">500 Ekor</span>
-          </div>
-          <div class="flex justify-between text-gray-600">
-            <span>Harga / Ekor:</span>
-            <span class="font-semibold text-gray-800">Rp 2000</span>
-          </div>
-          <hr class="my-2">
-          <a href="https://wa.me/6282148470908?text=Halo%20BBI,%20saya%20ingin%20memesan%20Benih%20Ikan%20Gurame" target="_blank" class="w-full bg-teal-600 hover:bg-teal-700 text-white text-center py-2 rounded-lg font-semibold block text-xs">
-  Pesan Benih Ini
-</a>
-        </div>
       </div>
-
     </div>
+
   </main>
 
   <!-- Footer -->
-  <footer class="bg-slate-900 text-slate-400 py-8 px-4 text-xs text-center border-t border-slate-800">
+  <footer class="bg-slate-900 text-slate-400 py-8 px-4 text-xs text-center border-t border-slate-800 mt-12">
     <div class="max-w-6xl mx-auto space-y-2">
       <p class="text-slate-200 font-semibold">SI-BENIH (Sistem Informasi Benih Ikan)</p>
       <p>Dinas Perikanan dan Ketahanan Pangan Kabupaten Gunung Mas</p>
       <p class="text-slate-500">© 2026 Pemerintah Kabupaten Gunung Mas. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- Script untuk Pengatur Tab BBI -->
+  <script>
+    function switchBBI(targetId) {
+      document.getElementById('content-bbi-1').classList.add('hidden');
+      document.getElementById('content-bbi-2').classList.add('hidden');
+
+      const btn1 = document.getElementById('btn-bbi-1');
+      const btn2 = document.getElementById('btn-bbi-2');
+      
+      btn1.className = "flex-1 py-3 text-center rounded-lg font-semibold text-sm transition flex items-center justify-center gap-2 text-gray-500 hover:text-teal-700";
+      btn2.className = "flex-1 py-3 text-center rounded-lg font-semibold text-sm transition flex items-center justify-center gap-2 text-gray-500 hover:text-teal-700";
+
+      if(targetId === 'bbi-1') {
+        document.getElementById('content-bbi-1').classList.remove('hidden');
+        btn1.className = "flex-1 py-3 text-center rounded-lg font-semibold text-sm transition flex items-center justify-center gap-2 bg-teal-50 text-teal-800 border border-teal-200 shadow-sm";
+      } else {
+        document.getElementById('content-bbi-2').classList.remove('hidden');
+        btn2.className = "flex-1 py-3 text-center rounded-lg font-semibold text-sm transition flex items-center justify-center gap-2 bg-cyan-50 text-cyan-800 border border-cyan-200 shadow-sm";
+      }
+    }
+  </script>
 
 </body>
 </html>
